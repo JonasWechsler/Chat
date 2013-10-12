@@ -1,0 +1,69 @@
+extends layout
+
+block content
+    div(id = "content")
+        div(id="text" style="width:500px;height:500px")
+        form(onsubmit="send_text(event)" autocomplete="off")
+            input(id="input" type="text" name="nextline")
+    script(src="http://code.jquery.com/jquery-1.9.1.js")
+    script(src="./js/jquery.mousewheel.min.js")
+    script
+        var input = $("#input");
+        var lastX = null;
+        var lastY = null;
+        var moved = true;
+        var width = input.width();
+        var height = input.height();
+        var MIN_SIZE = 6;
+        var size = parseInt(input.css('font-size'));
+        $("div").mousedown(function () {
+            $("span:first").css("color", "red");
+            input.css('position', 'absolute');
+            input.css('left', '' + (event.pageX - height * .5) + "px");
+            input.css('top', '' + (event.pageY - height * .5) + "px");
+            moved = true;
+        });
+        $('body').keypress(function () {
+            input.focus();
+        });
+        
+        $("#input").bind("mousewheel", function(event, delta) {
+            if (delta > 0) {
+                size++;
+            } else {
+                if (size > MIN_SIZE) {
+                  size--;
+                }
+            }
+        return false;
+        });
+     
+        function send_text(e) {
+            e.preventDefault();
+            var text = $("#input").val();
+            input.val('');
+            if (text == '') return;
+            var offset = input.offset();
+            if (!lastX || !lastY || moved) {
+                moved = false;
+                lastX = offset.left;
+                lastY = offset.top + height;
+            }
+            var newX = lastX;
+            var newY = lastY + parseInt(input.css('font-size'));
+            submit_text(newX, newY, text, input.css('font-size'));
+            lastY = newY;
+            lastX = newX;
+        }
+        
+        function submit_text(x, y, text, size) {
+            var a = $("<p><\p>");
+            a.append(document.createTextNode(text));
+            a.css('left', x);
+            a.css('top', y);
+            a.css('font-size', size);
+            $("#text").append(a);
+        
+        }
+        
+               
