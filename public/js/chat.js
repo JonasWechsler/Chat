@@ -1,4 +1,4 @@
-window.onload = function () {
+function chat_init(){
 	var messages = [];
 	var socket = io.connect('http://localhost:3700');
 	var input = $("#input");
@@ -6,9 +6,10 @@ window.onload = function () {
 	var lastY = null;
 	var moved = true;
 	var MIN_SIZE = 6;
-	var RESIZEABLE = false;
+	var RESIZEABLE = true;
 	var size = parseInt(input.css('font-size'));
-	$("div").mousedown(function () {
+	$("#text").mousedown(function (event) {
+		console.log('mousedown at' + event.pageX + ',' + event.pageY);
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - input.outerHeight() * .5) + "px");
 		input.css('top', '' + (event.pageY - input.outerHeight() * .5) + "px");
@@ -70,6 +71,9 @@ window.onload = function () {
 			a.css('left', x);
 			a.css('top', y);
 			a.css('font-size', size);
+			
+			console.log(socket);
+			console.log(socket.socket.sessionid);
 			html.push(a);
 
 		}

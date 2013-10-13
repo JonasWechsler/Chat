@@ -14,10 +14,14 @@ app.use(express.static(__dirname + '/public'));
 var io = require('socket.io').listen(app.listen(port));
 
 io.sockets.on('connection', function (socket) {
-	console.log(socket);
+	console.log('A socket with sessionID ' + socket.store.id 
+        + ' connected!');
+	
     socket.on('say', function (data) {
         io.sockets.emit('say', data);
     });
 });
+
+var colors = new Array();
 
 console.log("Listening on port " + port);

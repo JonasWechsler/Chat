@@ -1,10 +1,19 @@
 doctype 5
 html
-  head
-    title= "Real time web chat"
-    script(src='/js/chat.js')
-    script(src='/socket.io/socket.io.js')
-    script(src="http://code.jquery.com/jquery-1.9.1.js")
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= "Real time web chat"
+		script(src='/js/chat.js')
+		script(src='/socket.io/socket.io.js')
+		script(src="http://code.jquery.com/jquery-1.9.1.js")
+		script(src='/js/menu.js')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script
+			window.onload=function(){
+				chat_init();
+				menu_init();
+				$(window).resize(function(){
+					menu_init();
+				});
+			}
+	body
+		block content
