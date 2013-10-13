@@ -1,6 +1,6 @@
 function chat_init(){
 	var messages = [];
-	var url = 'http://pure-beyond-3778.herokuapp.com/';
+	var url = 'http://sweet-talk.herokuapp.com/';
 	var socket = io.connect(url);
 	var input = $("#input");
 	var lastX = null;
