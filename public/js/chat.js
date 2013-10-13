@@ -1,6 +1,7 @@
 function chat_init(){
 	var messages = [];
 	var socket = io.connect('http://localhost:3700');
+	console.log(socket);
 	var input = $("#input");
 	var lastX = null;
 	var lastY = null;
