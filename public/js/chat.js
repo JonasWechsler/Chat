@@ -83,12 +83,6 @@ function chat_init(){
 	});
 
 	function submit_text(X, Y, Text, Size) {
-		console.log({
-			x: X,
-			y: Y,
-			text: Text,
-			size: Size
-		});
 		socket.emit('say', {
 			x: X,
 			y: Y,
