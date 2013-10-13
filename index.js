@@ -11,7 +11,7 @@ app.get("/", function (req, res) {
 });
 
 app.use(express.static(__dirname + '/public'));
-var io = require('socket.io').listen(app.listen(port));
+var io = require('socket.io').listen(app.listen(process.env.PORT || port));
 
 io.sockets.on('connection', function (socket) {
 	console.log('A socket with sessionID ' + socket.store.id 
