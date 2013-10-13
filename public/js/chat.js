@@ -1,6 +1,6 @@
 function chat_init(){
 	var messages = [];
-	var socket = io.connect('http://localhost:3700');
+	var socket = io.connect('http://pure-beyond-3778.herokuapp.com:3700');
 	console.log(socket);
 	var input = $("#input");
 	var lastX = null;
