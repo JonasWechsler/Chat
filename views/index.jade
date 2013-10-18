@@ -4,5 +4,7 @@ block content
 	div(id = "content")
 		div#text
 		div#menu
-			h3 Click and scroll!
+			div#sizer
+				input(type="range" onchange="showValue(this.value)" min="8" max="64")
+				h1#size 14
 		input#input(type="text" class="wheelable" name="nextline" autocomplete="off")
