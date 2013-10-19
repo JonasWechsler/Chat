@@ -41,7 +41,13 @@ p {
 	background-color:white;
 	z-index:1;
 }
+#sizer{
+	margin:15px;
+}
 #menu {
+	font-family: Helvetica, sans-serif;
+	font-size:21;
+	
 	position:fixed;
 	left:0px;
 	bottom:0px;

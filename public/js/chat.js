@@ -10,7 +10,6 @@ function chat_init(){
 	var RESIZEABLE = true;
 	var size = parseInt(input.css('font-size'));
 	$("#text").mousedown(function (event) {
-		console.log('mousedown at' + event.pageX + ',' + event.pageY);
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - input.outerHeight() * .5) + "px");
 		input.css('top', '' + (event.pageY - input.outerHeight() * .5) + "px");
@@ -37,6 +36,7 @@ function chat_init(){
 		if (e.keyCode == 13) {
 			send_text();
 		}
+        
 	});
 
 	function send_text() {
@@ -50,7 +50,7 @@ function chat_init(){
 			lastY = offset.top + input.height();
 		}
 		var newX = lastX;
-		var newY = lastY + parseInt(input.css('font-size')) * 1.1;
+		var newY = lastY + parseInt(input.css('font-size'));
 		submit_text(newX, newY, text, input.css('font-size'));
 		lastY = newY;
 		lastX = newX;
@@ -64,7 +64,6 @@ function chat_init(){
 			var y = messages[i].y;
 			var text = messages[i].text;
 			var size = messages[i].size;
-			
 			var a = $("<p><\p>");
 			a.append(document.createTextNode(text));
 			a.css('left', x);
