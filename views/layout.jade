@@ -6,9 +6,11 @@ html
 		script(src='./socket.io/socket.io.js')
 		script(src="http://code.jquery.com/jquery-1.9.1.js")
 		script(src='./js/menu.js')
+		script(src='./js/sizeof.js')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		script
 			window.onload=function(){
+				console.log("loaded");
 				chat_init();
 				menu_init();
 				$(window).resize(function(){

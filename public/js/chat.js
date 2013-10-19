@@ -1,7 +1,7 @@
 function chat_init(){
 	var messages = [];
 	var url = 'http://sweet-talk.herokuapp.com/';
-	var socket = io.connect(url);
+	var socket = io.connect('localhost');
 	var input = $("#input");
 	var lastX = null;
 	var lastY = null;
@@ -64,20 +64,16 @@ function chat_init(){
 			var y = messages[i].y;
 			var text = messages[i].text;
 			var size = messages[i].size;
-
-			console.log(i + "::" + x + "," + y + "," + text + "," + size);
-
+			
 			var a = $("<p><\p>");
 			a.append(document.createTextNode(text));
 			a.css('left', x);
 			a.css('top', y);
 			a.css('font-size', size);
-			
-			console.log(socket);
-			console.log(socket.socket.sessionid);
 			html.push(a);
-
+			
 		}
+		console.log("size::" + roughsizeof(messages) + " bytes");
 		$("#text").children().remove();
 		$("#text").append(html);
 	});
