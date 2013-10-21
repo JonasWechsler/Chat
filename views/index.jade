@@ -4,10 +4,14 @@ block content
 	div(id = "content")
 		div#text
 		div#menu
-<<<<<<< HEAD
-=======
-			div#sizer
-				input(type="range" onchange="showValue(this.value)" min="8" max="64")
-				h1#size 14
->>>>>>> e4099ff273151de18f0784c71bbb68de47f023f6
+			table(border='0')
+				tbody
+					tr#sizer
+						td
+							h1#size 14
+						td
+							input(type="range" onchange="showValue(this.value)" min="10" max="64")
+						td#colorpicker
+						td
+							h1#example What if I did?
 		input#input(type="text" class="wheelable" name="nextline" autocomplete="off")
