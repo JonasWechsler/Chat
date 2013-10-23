@@ -3,6 +3,7 @@
 
 function menu_init() {
 	var menu = $('#menu');
+	var sizer = $('#sizeslider');
 	var height = menu.innerHeight();
 	var GOLD = 0.618033988749895;
 	menu.mouseover(function () {
@@ -34,17 +35,21 @@ function menu_init() {
 	});
 }
 
-function setColor(color){
+function setColor(newcolor){
+	console.log('color:' + color);
+	console.log(newcolor);
+	color=newcolor;
 	
 }
 
 function color_init(){
 	$('.colorradio').click(function () {
 		console.log($(this).css('background-color'));
+		setColor($(this).css('background-color'));
 	});
 }
 
 function showValue(newValue) {
-	console.log(newValue);
+	set_size(newValue);
 	$("#size").text(newValue);
 }

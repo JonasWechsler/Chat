@@ -1,3 +1,14 @@
+function set_size(newsize){
+	if(newsize.indexOf('px')==-1)
+		newsize = newsize + "px";
+	size=newsize;
+	$("#input").css('font-size',size);
+	console.log(size);
+	console.log(newsize);
+	console.log($('#input').css('font-size'));
+}
+var color = 'grey';
+
 function chat_init() {
 	var messages = [];
 	var url = 'http://sweet-talk.herokuapp.com/';
@@ -6,11 +17,11 @@ function chat_init() {
 	var lastX = null;
 	var lastY = null;
 	var moved = true;
-	var MIN_SIZE = 6;
+	var MIN_SIZE = 10;
 	var RESIZEABLE = true;
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
-	var color = 'grey';
+	
 	$("#text").mousedown(function (event) {
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - (input.outerWidth()-input.innerWidth())) + "px");
@@ -52,7 +63,7 @@ function chat_init() {
 		//var newY = lastY + parseInt(input.css('font-size'));
 		//var newY = lastY;
 		console.log(input.css('font-size'));
-		submit_text(lastX + (input.outerWidth(true) - input.innerWidth()), lastY, text, input.css('font-size'));
+		submit_text(lastX + (input.outerWidth(true) - input.innerWidth()), lastY, text, input.css('font-size'),color);
 		input.css('left', '' + (offset.left) + "px");
 		input.css('top', '' + (offset.top + parseInt(input.css('font-size')) ) + "px");
 		//lastY = newY;
@@ -72,7 +83,7 @@ function chat_init() {
 			a.append(document.createTextNode(text));
 			a.css('left', x);
 			a.css('top', y);
-			a.css('color', color);
+			a.css('color', messages[i].color);
 			a.css('font-size', size);
 			html.push(a);
 		}
@@ -84,23 +95,24 @@ function chat_init() {
 		var colorpicker = $("#colorpicker");
 		var html = new Array();
 		for (var i = 0; i < data.length; i++) {
-			var a = $("<td>");
+			var a = $("<div>");
 			a.css('background-color', data[i]);
 			a.addClass('colorradio');
 			html.push(a);
 		}
-		colorpicker.append(html);
+		colorpicker.prepend(html);
 
 		color_init();
 	});
 
-	function submit_text(X, Y, Text, Size) {
+	function submit_text(X, Y, Text, Size, Color) {
 		socket.emit('say', {
 			time: 0,
 			x: X,
 			y: Y,
 			text: Text,
-			size: Size
+			size: Size,
+			color: Color
 		});
 	}
 }

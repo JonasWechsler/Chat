@@ -37,21 +37,22 @@ body {
 	background-color:white;
 	z-index:1;
 }
-table{
-	width:100%;
-}
-td{
+#menu div{
 	margin:5px;
 	display:inline-block;
 }
-
+#sizer *{
+	display:inline;
+	margin:5px;
+}
 #sizer h1 {
 	border-radius:5px;
 	background-color:#646464;
-	margin:0;	
+	margin:0;
 }
 
 h1{
+	display:inline;
 	padding:5px;
 }
 

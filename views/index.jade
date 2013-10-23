@@ -4,14 +4,13 @@ block content
 	div(id = "content")
 		div#text
 		div#menu
-			table(border='0')
-				tbody
-					tr#sizer
-						td
-							h1#size 14
-						td
-							input(type="range" onchange="showValue(this.value)" min="10" max="64")
-						td#colorpicker
-						td
-							h1#example What if I did?
+			div
+				div#sizer
+					
+						h1#size 14
+					
+						input#sizeslider(type="range" onchange="showValue(this.value)" min="10" max="64")
+					div#colorpicker
+						h1#example What if I did?
+		
 		input#input(type="text" class="wheelable" name="nextline" autocomplete="off")
