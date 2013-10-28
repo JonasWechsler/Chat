@@ -31,19 +31,18 @@ io.sockets.on('connection', function (socket) {
 		console.log('set data of ' + socket.store.id + ' to ' + users[socket.store.id]);
 	});
 	socket.on('say', function (data) {
+		console.log('said::' + data);
 		data.time = date.getTime();
-		data.color = colors[socket.store.id];
+		data.color = users[socket.store.id];
 		messages.push(data);
 		io.sockets.emit('hear', data);
 	});
 	socket.on('colorset', function (data) {
 		var hex = RGBtoHEX(data);
-		console.log(hex);
 		position = colors.indexOf(hex);
 		if (~position) colors.splice(position, 1);
-		console.log('data:: ' + hex + " at" + position);
-		console.log(colors);
-
+		users[socket.store.id] = hex;
+		
 		if (colors.length < 5)
 			makeColors(5 - colors.length);
 		else while (colors > 5)

@@ -67,6 +67,8 @@ function chat_init() {
 		return false;
 	}
 	socket.on('hear', function (data) {
+		console.log('heard::' );
+		console.log(data);
 		data.time = date.getTime();
 		messages.push(data);
 		var html = Array();
