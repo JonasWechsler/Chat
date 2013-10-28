@@ -8,7 +8,7 @@ function set_size(newsize) {
 function chat_init() {
 	var messages = [];
 	var url = 'http://sweet-talk.herokuapp.com/';
-	var socket = io.connect('localhost');
+	var socket = io.connect(url);
 	var input = $("#input");
 	var lastX = null;
 	var lastY = null;
