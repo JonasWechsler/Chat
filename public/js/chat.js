@@ -1,13 +1,9 @@
-function set_size(newsize){
-	if(newsize.indexOf('px')==-1)
+function set_size(newsize) {
+	if (newsize.indexOf('px') == -1)
 		newsize = newsize + "px";
-	size=newsize;
-	$("#input").css('font-size',size);
-	console.log(size);
-	console.log(newsize);
-	console.log($('#input').css('font-size'));
+	size = newsize;
+	$("#input").css('font-size', size);
 }
-var color = 'grey';
 
 function chat_init() {
 	var messages = [];
@@ -21,10 +17,10 @@ function chat_init() {
 	var RESIZEABLE = true;
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
-	
+
 	$("#text").mousedown(function (event) {
 		input.css('position', 'absolute');
-		input.css('left', '' + (event.pageX - (input.outerWidth()-input.innerWidth())) + "px");
+		input.css('left', '' + (event.pageX - (input.outerWidth() - input.innerWidth())) + "px");
 		input.css('top', '' + (event.pageY - input.outerHeight() * .5) + "px");
 		moved = true;
 	});
@@ -57,20 +53,20 @@ function chat_init() {
 		input.val('');
 		if (text == '') return;
 		var offset = input.offset();
-		lastX = offset.left /*+ input.outerWidth(true) - input.innerWidth()*/;
+		lastX = offset.left /*+ input.outerWidth(true) - input.innerWidth()*/ ;
 		lastY = offset.top;
 		//var newX = lastX;
 		//var newY = lastY + parseInt(input.css('font-size'));
 		//var newY = lastY;
-		console.log(input.css('font-size'));
-		submit_text(lastX + (input.outerWidth(true) - input.innerWidth()), lastY, text, input.css('font-size'),color);
+		//console.log(input.css('font-size'));
+		submit_text(lastX + (input.outerWidth(true) - input.innerWidth()), lastY, text, input.css('font-size'));
 		input.css('left', '' + (offset.left) + "px");
-		input.css('top', '' + (offset.top + parseInt(input.css('font-size')) ) + "px");
+		input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
 		//lastY = newY;
 		//lastX = newX;
 		return false;
 	}
-	socket.on('say', function (data) {
+	socket.on('hear', function (data) {
 		data.time = date.getTime();
 		messages.push(data);
 		var html = Array();
@@ -100,19 +96,34 @@ function chat_init() {
 			a.addClass('colorradio');
 			html.push(a);
 		}
+
+		colorpicker.empty();
 		colorpicker.prepend(html);
 
 		color_init();
 	});
 
-	function submit_text(X, Y, Text, Size, Color) {
+	function submit_text(X, Y, Text, Size) {
 		socket.emit('say', {
 			time: 0,
 			x: X,
 			y: Y,
 			text: Text,
-			size: Size,
-			color: Color
+			size: Size
 		});
 	}
+
+	function setColor(newcolor) {
+		socket.emit('colorset', newcolor);
+		color = newcolor;
+		$("input").css('color', newcolor);
+	}
+
+	function color_init() {
+		$('.colorradio').click(function () {
+			console.log($(this).css('background-color'));
+			setColor($(this).css('background-color'));
+		});
+	}
+
 }

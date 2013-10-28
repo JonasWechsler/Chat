@@ -35,19 +35,6 @@ function menu_init() {
 	});
 }
 
-function setColor(newcolor){
-	console.log('color:' + color);
-	console.log(newcolor);
-	color=newcolor;
-	
-}
-
-function color_init(){
-	$('.colorradio').click(function () {
-		console.log($(this).css('background-color'));
-		setColor($(this).css('background-color'));
-	});
-}
 
 function showValue(newValue) {
 	set_size(newValue);
