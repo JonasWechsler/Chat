@@ -3,6 +3,10 @@ function set_size(newsize) {
 		newsize = newsize + "px";
 	size = newsize;
 	$("#input").css('font-size', size);
+	$('#sizeslider').prop({
+            'min': 10,
+            'max': 64
+        });
 }
 
 function chat_init() {
@@ -45,7 +49,6 @@ function chat_init() {
 		if (e.keyCode == 13) {
 			send_text();
 		}
-
 	});
 
 	function send_text() {
@@ -53,17 +56,11 @@ function chat_init() {
 		input.val('');
 		if (text == '') return;
 		var offset = input.offset();
-		lastX = offset.left /*+ input.outerWidth(true) - input.innerWidth()*/ ;
+		lastX = offset.left;
 		lastY = offset.top;
-		//var newX = lastX;
-		//var newY = lastY + parseInt(input.css('font-size'));
-		//var newY = lastY;
-		//console.log(input.css('font-size'));
 		submit_text(lastX + (input.outerWidth(true) - input.innerWidth()), lastY, text, input.css('font-size'));
 		input.css('left', '' + (offset.left) + "px");
 		input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
-		//lastY = newY;
-		//lastX = newX;
 		return false;
 	}
 	socket.on('hear', function (data) {

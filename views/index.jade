@@ -6,11 +6,12 @@ block content
 		div#menu
 			div
 				div#sizer
-					
-						h1#size 14
-					
-						input#sizeslider(type="range" onchange="showValue(this.value)" min="10" max="64")
-					div#colorpicker
-						h1#example What if I did?
+					h1#size.slideval 14
+					input#sizeslider(type="range" onchange="showSizeValue(this.value)" min="10" max="64")
+				div#colorpicker
+					h1#example What if I did?
+				div#history
+					h1#date.slideval 10
+					input#historyslider(type="range" onchange="showHistoryValue(this.value)")
 		
 		input#input(type="text" class="wheelable" name="nextline" autocomplete="off")
