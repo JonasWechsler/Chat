@@ -36,7 +36,11 @@ function menu_init() {
 }
 
 
-function showValue(newValue) {
+function showSizeValue(newValue) {
 	set_size(newValue);
 	$("#size").text(newValue);
+}
+
+function showHistoryValue(newValue){
+	
 }
