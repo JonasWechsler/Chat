@@ -22,6 +22,9 @@ function chat_init() {
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
 
+	var c=document.getElementById("text");
+	var ctx=c.getContext("2d");
+	
 	$("#text").mousedown(function (event) {
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - (input.outerWidth() - input.innerWidth())) + "px");
@@ -32,7 +35,7 @@ function chat_init() {
 		input.focus();
 	});
 
-	if (RESIZEABLE) {
+	/*if (RESIZEABLE) {
 		$('body').bind('mousewheel', function (e) {
 			if (e.originalEvent.wheelDelta / 120 > 0) {
 				size += 2;
@@ -44,13 +47,12 @@ function chat_init() {
 			input.css('font-size', size);
 			return false;
 		});
-	}
+	}*/
 	$('body').keyup(function (e) {
 		if (e.keyCode == 13) {
 			send_text();
 		}
 	});
-
 	function send_text() {
 		var text = $("#input").val();
 		input.val('');
@@ -69,21 +71,29 @@ function chat_init() {
 		data.time = date.getTime();
 		messages.push(data);
 		var html = Array();
+		ctx.clearRect(0,0,c.width,c.height);
 		for (var i = 0; i < messages.length; i++) {
 			var x = messages[i].x;
 			var y = messages[i].y;
 			var text = messages[i].text;
 			var size = messages[i].size;
+			console.log(messages[i].color);
+			ctx.fillStyle=messages[i].color;
+			ctx.font=messages[i].size+" sans-serif";
+			console.log(ctx.font+" "+messages[i].size);
+			ctx.fillText(text,x,y+parseInt(size,10));
+			/*
 			var a = $("<p><\p>");
 			a.append(document.createTextNode(text));
 			a.css('left', x);
 			a.css('top', y);
 			a.css('color', messages[i].color);
 			a.css('font-size', size);
-			html.push(a);
+			html.push(a);*/
 		}
+		/*
 		$("#text").children().remove();
-		$("#text").append(html);
+		$("#text").append(html);*/
 	});
 
 	socket.on('colorlist', function (data) {
@@ -125,5 +135,10 @@ function chat_init() {
 			setColor($(this).css('background-color'));
 		});
 	}
-
+	function update_canvas_size(){
+		var canvas = $('#text');
+		canvas.attr('width',parseInt(canvas.width(),10));
+		canvas.attr('height',parseInt(canvas.height(),10));
+	}
+	update_canvas_size();
 }

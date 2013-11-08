@@ -2,7 +2,7 @@ extends layout
 
 block content
 	div(id = "content")
-		div#text
+		canvas#text(onresize="update_canvas_size()")
 		div#menu
 			div
 				div#sizer

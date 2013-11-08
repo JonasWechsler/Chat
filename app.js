@@ -21,6 +21,7 @@ var date = new Date();
 var users = new Array();
 var colors = new Array();
 var messages = new Array();
+var DEFAULT_COLOR = "#8A7777";
 
 io.sockets.on('connection', function (socket) {
 	if (colors.length < 5)
@@ -34,14 +35,17 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('say', function (data) {
 		data.time = date.getTime();
-		data.color = colors[socket.store.id];
+		if (users[socket.store.id])
+			data.color = users[socket.store.id];
+		else
+			data.color = "#8A7777";
 		messages.push(data);
 		db.messages.save(data);
 		io.sockets.emit('hear', data);
 	});
 	socket.on('colorset', function (data) {
 		users[socket.store.id] = data;
-		
+
 		var hex = RGBtoHEX(data);
 		position = colors.indexOf(hex);
 		if (~position) colors.splice(position, 1);
