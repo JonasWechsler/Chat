@@ -65,35 +65,21 @@ function chat_init() {
 		input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
 		return false;
 	}
+	
+	function draw_text(x,y,text,size,color,font){
+		console.log(x+" "+y+" "+text+" "+size+" "+color+" "+font);
+		ctx.fillStyle=color;
+		ctx.font=size+" "+font;
+		ctx.fillText(text,x,y+parseInt(size,10));
+	}
+	
 	socket.on('hear', function (data) {
-		console.log('heard::' );
-		console.log(data);
 		data.time = date.getTime();
 		messages.push(data);
-		var html = Array();
 		ctx.clearRect(0,0,c.width,c.height);
 		for (var i = 0; i < messages.length; i++) {
-			var x = messages[i].x;
-			var y = messages[i].y;
-			var text = messages[i].text;
-			var size = messages[i].size;
-			console.log(messages[i].color);
-			ctx.fillStyle=messages[i].color;
-			ctx.font=messages[i].size+" sans-serif";
-			console.log(ctx.font+" "+messages[i].size);
-			ctx.fillText(text,x,y+parseInt(size,10));
-			/*
-			var a = $("<p><\p>");
-			a.append(document.createTextNode(text));
-			a.css('left', x);
-			a.css('top', y);
-			a.css('color', messages[i].color);
-			a.css('font-size', size);
-			html.push(a);*/
+			draw_text(messages[i].x,messages[i].y,messages[i].text,messages[i].size,messages[i].color,"sans-serif");
 		}
-		/*
-		$("#text").children().remove();
-		$("#text").append(html);*/
 	});
 
 	socket.on('colorlist', function (data) {
