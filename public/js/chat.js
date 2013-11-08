@@ -12,7 +12,7 @@ function set_size(newsize) {
 function chat_init() {
 	var messages = [];
 	var url = 'http://sweet-talk.herokuapp.com/';
-	var socket = io.connect(url);
+	var socket = io.connect('localhost');
 	var input = $("#input");
 	var lastX = null;
 	var lastY = null;
@@ -89,6 +89,7 @@ function chat_init() {
 	socket.on('colorlist', function (data) {
 		var colorpicker = $("#colorpicker");
 		var html = new Array();
+		console.log(data);
 		for (var i = 0; i < data.length; i++) {
 			var a = $("<div>");
 			a.css('background-color', data[i]);

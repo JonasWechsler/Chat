@@ -39,7 +39,7 @@ body {
 
 #menu *{
 	vertical-align:middle;
-	display:inline;
+	display:inline-block;
 	margin:5px;
 	padding:5px;
 }
