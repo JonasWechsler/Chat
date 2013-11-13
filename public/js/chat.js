@@ -22,6 +22,15 @@ function chat_init() {
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
 
+	var position = {
+		x:0,
+		y:0,
+		z:0
+	}
+	
+	var width;
+	var height;
+	
 	var c=document.getElementById("text");
 	var ctx=c.getContext("2d");
 	
@@ -73,13 +82,17 @@ function chat_init() {
 		ctx.fillText(text,x,y+parseInt(size,10));
 	}
 	
-	socket.on('hear', function (data) {
-		data.time = date.getTime();
-		messages.push(data);
+	function update_text(){
 		ctx.clearRect(0,0,c.width,c.height);
 		for (var i = 0; i < messages.length; i++) {
 			draw_text(messages[i].x,messages[i].y,messages[i].text,messages[i].size,messages[i].color,"sans-serif");
 		}
+	}
+	
+	socket.on('hear', function (data) {
+		data.time = date.getTime();
+		messages.push(data);
+		update_text();
 	});
 
 	socket.on('colorlist', function (data) {
@@ -123,8 +136,13 @@ function chat_init() {
 	}
 	function update_canvas_size(){
 		var canvas = $('#text');
-		canvas.attr('width',parseInt(canvas.width(),10));
-		canvas.attr('height',parseInt(canvas.height(),10));
+		width = parseInt(canvas.width(),10);
+		canvas.attr('width',width);
+		height = parseInt(canvas.height(),10);
+		canvas.attr('height',height);
+		update_text();
 	}
+	window.onresize=function(){
 	update_canvas_size();
+	}
 }
