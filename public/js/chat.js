@@ -4,10 +4,16 @@ function set_size(newsize) {
 	size = newsize;
 	$("#input").css('font-size', size);
 	$('#sizeslider').prop({
-            'min': 10,
-            'max': 64
-        });
+		'min': 10,
+		'max': 64
+	});
 }
+
+	var position = {
+		x: 0,
+		y: 0,
+		z: 1
+	}
 
 function chat_init() {
 	var messages = [];
@@ -21,10 +27,11 @@ function chat_init() {
 	var RESIZEABLE = true;
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
+	var OVERSAMPLE_RATIO = 2;
 
-	var c=document.getElementById("text");
-	var ctx=c.getContext("2d");
-	
+	var c = document.getElementById("text");
+	var ctx = c.getContext("2d");
+
 	$("#text").mousedown(function (event) {
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - (input.outerWidth() - input.innerWidth())) + "px");
@@ -53,6 +60,7 @@ function chat_init() {
 			send_text();
 		}
 	});
+
 	function send_text() {
 		var text = $("#input").val();
 		input.val('');
@@ -60,32 +68,52 @@ function chat_init() {
 		var offset = input.offset();
 		lastX = offset.left;
 		lastY = offset.top;
-		submit_text(lastX + (input.outerWidth(true) - input.innerWidth()), lastY, text, input.css('font-size'));
+		submit_text(lastX + (input.outerWidth(true) - input.innerWidth())-position.x,lastY -  position.y, text, input.css('font-size'));
 		input.css('left', '' + (offset.left) + "px");
 		input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
 		return false;
 	}
-	
-	function draw_text(x,y,text,size,color,font){
-		console.log(x+" "+y+" "+text+" "+size+" "+color+" "+font);
-		ctx.fillStyle=color;
-		ctx.font=size+" "+font;
-		ctx.fillText(text,x,y+parseInt(size,10));
+
+	function draw_text(x, y, text, size, color, font) {
+		console.log(x + " " + y + " " + text + " " + size + " " + color + " " + font);
+		ctx.fillStyle = color;
+		ctx.font = size + " " + font;
+		ctx.fillText(text, x, y + parseInt(size, 10));
 	}
-	
+
+	function redraw() {
+		var canvas = $('#text');
+		var width = canvas.width() * OVERSAMPLE_RATIO;
+		var height = canvas.height() * OVERSAMPLE_RATIO;
+		var center = {
+			x:width/2,
+			y:height/2
+		}
+		ctx.clearRect(0, 0, c.width, c.height);
+		for (var i = 0; i < messages.length; i++) {
+			var x = messages[i].x;
+			var y = messages[i].y;
+			x += position.x;
+			y += position.y;
+
+			x /= position.z;
+			y /= position.z;
+			var size = messages[i].size;
+			size = parseInt(size,10);
+			size /= position.z;
+			size = size+"px";
+			draw_text(x,y, messages[i].text, size, messages[i].color, "sans-serif");
+		}
+	}
 	socket.on('hear', function (data) {
 		data.time = date.getTime();
 		messages.push(data);
-		ctx.clearRect(0,0,c.width,c.height);
-		for (var i = 0; i < messages.length; i++) {
-			draw_text(messages[i].x,messages[i].y,messages[i].text,messages[i].size,messages[i].color,"sans-serif");
-		}
+		redraw();
 	});
 
 	socket.on('colorlist', function (data) {
 		var colorpicker = $("#colorpicker");
 		var html = new Array();
-		console.log(data);
 		for (var i = 0; i < data.length; i++) {
 			var a = $("<div>");
 			a.css('background-color', data[i]);
@@ -121,10 +149,16 @@ function chat_init() {
 			setColor($(this).css('background-color'));
 		});
 	}
-	function update_canvas_size(){
+
+	function update_canvas_size() {
 		var canvas = $('#text');
-		canvas.attr('width',parseInt(canvas.width(),10));
-		canvas.attr('height',parseInt(canvas.height(),10));
+		canvas.attr('width', parseInt(canvas.width() * OVERSAMPLE_RATIO, 10));
+		canvas.attr('height', parseInt(canvas.height() * OVERSAMPLE_RATIO, 10));
+		ctx.scale(OVERSAMPLE_RATIO, OVERSAMPLE_RATIO);
+		redraw();
 	}
 	update_canvas_size();
+	$(window).resize(function () {
+		update_canvas_size()
+	});
 }
