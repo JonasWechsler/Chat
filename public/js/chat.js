@@ -32,6 +32,21 @@ function chat_init() {
 	var c = document.getElementById("text");
 	var ctx = c.getContext("2d");
 
+<<<<<<< HEAD
+=======
+	var position = {
+		x:0,
+		y:0,
+		z:0
+	}
+	
+	var width;
+	var height;
+	
+	var c=document.getElementById("text");
+	var ctx=c.getContext("2d");
+	
+>>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 	$("#text").mousedown(function (event) {
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - (input.outerWidth() - input.innerWidth())) + "px");
@@ -105,10 +120,25 @@ function chat_init() {
 			draw_text(x,y, messages[i].text, size, messages[i].color, "sans-serif");
 		}
 	}
+<<<<<<< HEAD
 	socket.on('hear', function (data) {
 		data.time = date.getTime();
 		messages.push(data);
 		redraw();
+=======
+	
+	function update_text(){
+		ctx.clearRect(0,0,c.width,c.height);
+		for (var i = 0; i < messages.length; i++) {
+			draw_text(messages[i].x,messages[i].y,messages[i].text,messages[i].size,messages[i].color,"sans-serif");
+		}
+	}
+	
+	socket.on('hear', function (data) {
+		data.time = date.getTime();
+		messages.push(data);
+		update_text();
+>>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 	});
 
 	socket.on('colorlist', function (data) {
@@ -152,13 +182,26 @@ function chat_init() {
 
 	function update_canvas_size() {
 		var canvas = $('#text');
+<<<<<<< HEAD
 		canvas.attr('width', parseInt(canvas.width() * OVERSAMPLE_RATIO, 10));
 		canvas.attr('height', parseInt(canvas.height() * OVERSAMPLE_RATIO, 10));
 		ctx.scale(OVERSAMPLE_RATIO, OVERSAMPLE_RATIO);
 		redraw();
+=======
+		width = parseInt(canvas.width(),10);
+		canvas.attr('width',width);
+		height = parseInt(canvas.height(),10);
+		canvas.attr('height',height);
+		update_text();
+>>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 	}
+	window.onresize=function(){
 	update_canvas_size();
+<<<<<<< HEAD
 	$(window).resize(function () {
 		update_canvas_size()
 	});
+=======
+	}
+>>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 }
