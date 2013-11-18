@@ -2,6 +2,7 @@ body {
 	font: 14px, Georgia, serif;
 	background-color:white;
 	height:100%;
+	overflow: hidden;
 }
 #input {
 	font-family:Georgia, serif;
@@ -52,6 +53,18 @@ body {
 .colorradio{
 	width:30px;
 	height:30px;
+}
+
+.circle{
+	-webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;	
+}
+
+.ui-helper-hidden-accessible{
+	display:none;
+	position: absolute;
+	left: -9999px;
 }
 
 #menu {

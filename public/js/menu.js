@@ -5,11 +5,14 @@ function menu_init() {
 	var menu = $('#menu');
 	var sizer = $('#sizeslider');
 	var height = menu.innerHeight();
-	
+
 	var BROWSER_KEY = "AIzaSyCuEqugiKRH0VfVsspQ6ErjRgDKTIvNTwc";
-	var GoogleFonts = "https://www.googleapis.com/webfonts/v1/webfonts?key=" + BROWSER_KEY;
-	
+	var GoogleFonts = "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=" + BROWSER_KEY;
+	var promptedFonts = [];
+	var numFonts = 100;
+
 	var GOLD = 0.618033988749895;
+
 	menu.mouseover(function () {
 		menu.animate({
 			bottom: 0,
@@ -37,8 +40,15 @@ function menu_init() {
 	}, {
 		queue: false
 	});
-	$.getJSON(GoogleFonts,function(json){
-		
+	$.getJSON(GoogleFonts, function (json) {
+		console.log(json);
+		for (var i = 0; i < 100; i++) {
+			promptedFonts.push(json.items[i].family);
+		}
+		console.log(promptedFonts);
+		$(".tags").autocomplete({
+			source: promptedFonts
+   		});
 	});
 }
 

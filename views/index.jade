@@ -4,14 +4,13 @@ block content
 	div(id = "content")
 		canvas#text
 		div#menu
-			div
+				div.fontfinder
+					input.tags
 				div#sizer
 					h1#size.slideval 14
 					input#sizeslider(type="range" onchange="showSizeValue(this.value)" min="10" max="64")
 				div#colorpicker
-					h1#example What if I did?
-				div.fontfinder
-					input.tags
+					h1#example What if I did
 				//div#history
 					h1#dateslideval 10
 					input#historyslider(type="range" onchange="showHistoryValue(this.value)")

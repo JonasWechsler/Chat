@@ -9,11 +9,11 @@ function set_size(newsize) {
 	});
 }
 
-	var position = {
-		x: 0,
-		y: 0,
-		z: 1
-	}
+var position = {
+	x: 0,
+	y: 0,
+	z: 1
+};
 
 function chat_init() {
 	var messages = [];
@@ -24,52 +24,40 @@ function chat_init() {
 	var lastY = null;
 	var moved = true;
 	var MIN_SIZE = 10;
-	var RESIZEABLE = true;
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
-	var OVERSAMPLE_RATIO = 2;
+	const OVERSAMPLE_RATIO = 2;
+
+	var width;
+	var height;
 
 	var c = document.getElementById("text");
 	var ctx = c.getContext("2d");
 
-<<<<<<< HEAD
-=======
-	var position = {
-		x:0,
-		y:0,
-		z:0
-	}
-	
-	var width;
-	var height;
-	
-	var c=document.getElementById("text");
-	var ctx=c.getContext("2d");
-	
->>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
-	$("#text").mousedown(function (event) {
+	$("#text").mouseup(function (event) {
 		input.css('position', 'absolute');
 		input.css('left', '' + (event.pageX - (input.outerWidth() - input.innerWidth())) + "px");
 		input.css('top', '' + (event.pageY - input.outerHeight() * .5) + "px");
 		moved = true;
 	});
 	$('body').keypress(function () {
+		if(!$('.tags').focus())
 		input.focus();
 	});
 
-	/*if (RESIZEABLE) {
-		$('body').bind('mousewheel', function (e) {
-			if (e.originalEvent.wheelDelta / 120 > 0) {
-				size += 2;
-			} else {
-				size -= 2;
-			}
-			if (size < MIN_SIZE)
-				size = MIN_SIZE;
-			input.css('font-size', size);
-			return false;
-		});
-	}*/
+	$('body').bind('mousewheel', function (e) {
+		const STEP = .1;
+		if (e.originalEvent.wheelDelta / 120 > 0) {
+			position.z += STEP;
+		} else {
+			position.z -= STEP;
+		}
+		if (position.z < STEP)
+			position.z = STEP;
+		redraw();
+		return false;
+	});
+
 	$('body').keyup(function (e) {
 		if (e.keyCode == 13) {
 			send_text();
@@ -83,9 +71,20 @@ function chat_init() {
 		var offset = input.offset();
 		lastX = offset.left;
 		lastY = offset.top;
-		submit_text(lastX + (input.outerWidth(true) - input.innerWidth())-position.x,lastY -  position.y, text, input.css('font-size'));
+
+		var fpos = reverse_translate_point(lastX + (input.outerWidth(true) - input.innerWidth()), lastY);
+		var fsize = parseInt(input.css('font-size'), 10) * position.z;
+		var font = input.css('font-family');
+
+		submit_text(fpos.x, fpos.y, text, fsize, font);
 		input.css('left', '' + (offset.left) + "px");
-		input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
+		console.log("a", (offset.top + parseInt(input.css('font-size'))) - $('#text').height());
+		if ($('#text').outerHeight() - (offset.top + parseInt(input.css('font-size'))) > fsize) {
+			input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
+		} else {
+			position.y += parseInt(input.css('font-size'));
+			redraw();
+		}
 		return false;
 	}
 
@@ -98,47 +97,69 @@ function chat_init() {
 
 	function redraw() {
 		var canvas = $('#text');
+		ctx.clearRect(0, 0, c.width, c.height);
+		for (var i = 0; i < messages.length; i++) {
+			var pos = translate_point(messages[i].x, messages[i].y);
+			var size = messages[i].size;
+			size = parseInt(size, 10);
+			size /= position.z;
+			size = size + "px";
+			draw_text(pos.x, pos.y, messages[i].text, size, messages[i].color, messages[i].font);
+		}
+	}
+	/**translates from universal coordinates into display coordinates*/
+	function translate_point(x0, y0) {
+		console.log("untranslated", x0, y0);
+		var canvas = $('#text');
 		var width = canvas.width() * OVERSAMPLE_RATIO;
 		var height = canvas.height() * OVERSAMPLE_RATIO;
 		var center = {
-			x:width/2,
-			y:height/2
+			x: width / 2,
+			y: height / 2
 		}
-		ctx.clearRect(0, 0, c.width, c.height);
-		for (var i = 0; i < messages.length; i++) {
-			var x = messages[i].x;
-			var y = messages[i].y;
-			x += position.x;
-			y += position.y;
 
-			x /= position.z;
-			y /= position.z;
-			var size = messages[i].size;
-			size = parseInt(size,10);
-			size /= position.z;
-			size = size+"px";
-			draw_text(x,y, messages[i].text, size, messages[i].color, "sans-serif");
-		}
+		x0 -= position.x;
+		y0 -= position.y;
+
+		x0 /= position.z;
+		y0 /= position.z;
+
+		x0 += center.x / 2;
+		y0 += center.y / 2;
+
+		return {
+			x: x0,
+			y: y0
+		};
 	}
-<<<<<<< HEAD
+	/**translates from display coordinates into universal coordinates*/
+	function reverse_translate_point(x0, y0) {
+		var canvas = $('#text');
+		var width = canvas.width() * OVERSAMPLE_RATIO;
+		var height = canvas.height() * OVERSAMPLE_RATIO;
+		var center = {
+			x: width / 2,
+			y: height / 2
+		}
+
+		x0 -= center.x / 2;
+		y0 -= center.y / 2;
+
+		x0 *= position.z;
+		y0 *= position.z;
+
+		x0 += position.x;
+		y0 += position.y;
+
+		return {
+			x: x0,
+			y: y0
+		};
+	}
 	socket.on('hear', function (data) {
 		data.time = date.getTime();
 		messages.push(data);
 		redraw();
-=======
-	
-	function update_text(){
-		ctx.clearRect(0,0,c.width,c.height);
-		for (var i = 0; i < messages.length; i++) {
-			draw_text(messages[i].x,messages[i].y,messages[i].text,messages[i].size,messages[i].color,"sans-serif");
-		}
-	}
-	
-	socket.on('hear', function (data) {
-		data.time = date.getTime();
-		messages.push(data);
-		update_text();
->>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 	});
 
 	socket.on('colorlist', function (data) {
@@ -157,13 +178,14 @@ function chat_init() {
 		color_init();
 	});
 
-	function submit_text(X, Y, Text, Size) {
+	function submit_text(X, Y, Text, Size, Font) {
 		socket.emit('say', {
 			time: 0,
 			x: X,
 			y: Y,
 			text: Text,
-			size: Size
+			size: Size,
+			font: Font
 		});
 	}
 
@@ -182,26 +204,15 @@ function chat_init() {
 
 	function update_canvas_size() {
 		var canvas = $('#text');
-<<<<<<< HEAD
-		canvas.attr('width', parseInt(canvas.width() * OVERSAMPLE_RATIO, 10));
-		canvas.attr('height', parseInt(canvas.height() * OVERSAMPLE_RATIO, 10));
+		width = parseInt(canvas.width() * OVERSAMPLE_RATIO, 10);
+		canvas.attr('width', width);
+		height = parseInt(canvas.height() * OVERSAMPLE_RATIO, 10);
+		canvas.attr('height', height);
 		ctx.scale(OVERSAMPLE_RATIO, OVERSAMPLE_RATIO);
 		redraw();
-=======
-		width = parseInt(canvas.width(),10);
-		canvas.attr('width',width);
-		height = parseInt(canvas.height(),10);
-		canvas.attr('height',height);
-		update_text();
->>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 	}
-	window.onresize=function(){
+	window.onresize = function () {
+		update_canvas_size();
+	}
 	update_canvas_size();
-<<<<<<< HEAD
-	$(window).resize(function () {
-		update_canvas_size()
-	});
-=======
-	}
->>>>>>> f66dd90b23bc303ad611236191141cc0734c64b6
 }
