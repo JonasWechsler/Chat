@@ -2,8 +2,8 @@
 //http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/
 
 function menu_init() {
-	var menu = $('#menu');
-	var sizer = $('#sizeslider');
+	var menu = $('.menu');
+	var sizer = $('.sizeslider');
 	var height = menu.innerHeight();
 
 	var BROWSER_KEY = "AIzaSyCuEqugiKRH0VfVsspQ6ErjRgDKTIvNTwc";
@@ -12,8 +12,7 @@ function menu_init() {
 	var numFonts = 100;
 
 	var GOLD = 0.618033988749895;
-
-	menu.mouseover(function () {
+	/*menu.mouseover(function () {
 		menu.animate({
 			bottom: 0,
 			borderWidth: "0px"
@@ -21,7 +20,7 @@ function menu_init() {
 			queue: false
 		});
 	});
-	menu.mouseleave(function () {
+	menu.click(function () {
 		height = menu.innerHeight();
 		menu.animate({
 			bottom: -1 * height,
@@ -39,24 +38,38 @@ function menu_init() {
 		borderWidth: "0px"
 	}, {
 		queue: false
-	});
+	});*/
 	$.getJSON(GoogleFonts, function (json) {
 		console.log(json);
 		for (var i = 0; i < 100; i++) {
 			promptedFonts.push(json.items[i].family);
 		}
-		console.log(promptedFonts);
-		$(".tags").autocomplete({
-			source: promptedFonts
-   		});
+		for (var i = 0; i < promptedFonts.length; i++) {
+			$(".fonts").append("<option>" + promptedFonts[i] + "</option>");
+		}
+
+		WebFont.load({
+			google: {
+				families: promptedFonts
+			}
+		});
 	});
+	$(".fonts").change(function () {
+		var str = "";
+		$("select option:selected").each(function () {
+			str += $(this).text() + " ";
+		});
+		console.log(str);
+		$(".textbox").css('font-family',str);
+	}).change();
 }
+
 
 function showSizeValue(newValue) {
 	set_size(newValue);
-	$("#size").text(newValue);
+	$(".size").text(newValue);
 }
 
-function showHistoryValue(newValue){
-	
+function showHistoryValue(newValue) {
+
 }

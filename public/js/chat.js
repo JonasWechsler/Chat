@@ -2,8 +2,8 @@ function set_size(newsize) {
 	if (newsize.indexOf('px') == -1)
 		newsize = newsize + "px";
 	size = newsize;
-	$("#input").css('font-size', size);
-	$('#sizeslider').prop({
+	$(".textbox").css('font-size', size);
+	$('.sizeslider').prop({
 		'min': 10,
 		'max': 64
 	});
@@ -18,8 +18,8 @@ var position = {
 function chat_init() {
 	var messages = [];
 	var url = 'http://sweet-talk.herokuapp.com/';
-	var socket = io.connect('localhost');
-	var input = $("#input");
+	var socket = io.connect();
+	var input = $(".textbox");
 	var lastX = null;
 	var lastY = null;
 	var moved = true;
@@ -27,11 +27,12 @@ function chat_init() {
 	var date = new Date();
 	var size = parseInt(input.css('font-size'));
 	const OVERSAMPLE_RATIO = 2;
+	const LOOK_STEP = 100;
 
 	var width;
 	var height;
 
-	var c = document.getElementById("text");
+	var c = document.getElementById('text');
 	var ctx = c.getContext("2d");
 
 	$("#text").mouseup(function (event) {
@@ -41,8 +42,8 @@ function chat_init() {
 		moved = true;
 	});
 	$('body').keypress(function () {
-		if(!$('.tags').focus())
-		input.focus();
+		if (!$('.tags').focus())
+			input.focus();
 	});
 
 	$('body').bind('mousewheel', function (e) {
@@ -65,7 +66,7 @@ function chat_init() {
 	});
 
 	function send_text() {
-		var text = $("#input").val();
+		var text = $(".textbox").val();
 		input.val('');
 		if (text == '') return;
 		var offset = input.offset();
@@ -106,6 +107,61 @@ function chat_init() {
 			size = size + "px";
 			draw_text(pos.x, pos.y, messages[i].text, size, messages[i].color, messages[i].font);
 		}
+	}
+
+	$(".dup").click(function () {
+		pan("up")
+	});
+	$(".ddown").click(function () {
+		pan("down")
+	});
+	$(".dleft").click(function () {
+		pan("left")
+	});
+	$(".dright").click(function () {
+		pan("right")
+	});
+	$(document).keydown(function (e) {
+		switch (e.keyCode) {
+
+		case 37:
+			pan("left");
+			break;
+			/*left*/
+		case 38:
+			pan("up");
+			break;
+			/*up*/
+		case 39:
+			pan("right");
+			break;
+
+			/*right*/
+		case 40:
+			pan("down");
+			break;
+
+			/*down*/
+		}
+	});
+
+	function pan(direction) {
+		switch (direction) {
+		case "up":
+			console.log("up");
+			position.y -= LOOK_STEP;
+			break;
+		case "down":
+			position.y += LOOK_STEP;
+			break;
+		case "left":
+			position.x -= LOOK_STEP;
+			break;
+		case "right":
+			position.x += LOOK_STEP;
+			break;
+		}
+		redraw();
 	}
 	/**translates from universal coordinates into display coordinates*/
 	function translate_point(x0, y0) {
@@ -163,7 +219,7 @@ function chat_init() {
 	});
 
 	socket.on('colorlist', function (data) {
-		var colorpicker = $("#colorpicker");
+		var colorpicker = $(".colorpicker");
 		var html = new Array();
 		for (var i = 0; i < data.length; i++) {
 			var a = $("<div>");
@@ -192,7 +248,7 @@ function chat_init() {
 	function setColor(newcolor) {
 		socket.emit('colorset', newcolor);
 		color = newcolor;
-		$("input").css('color', newcolor);
+		$(".textbox").css('color', newcolor);
 	}
 
 	function color_init() {
