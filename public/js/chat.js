@@ -79,7 +79,6 @@ function chat_init() {
 
 		submit_text(fpos.x, fpos.y, text, fsize, font);
 		input.css('left', '' + (offset.left) + "px");
-		console.log("a", (offset.top + parseInt(input.css('font-size'))) - $('#text').height());
 		if ($('#text').outerHeight() - (offset.top + parseInt(input.css('font-size'))) > fsize) {
 			input.css('top', '' + (offset.top + parseInt(input.css('font-size'))) + "px");
 		} else {
@@ -90,7 +89,6 @@ function chat_init() {
 	}
 
 	function draw_text(x, y, text, size, color, font) {
-		console.log(x + " " + y + " " + text + " " + size + " " + color + " " + font);
 		ctx.fillStyle = color;
 		ctx.font = size + " " + font;
 		ctx.fillText(text, x, y + parseInt(size, 10));
@@ -148,7 +146,6 @@ function chat_init() {
 	function pan(direction) {
 		switch (direction) {
 		case "up":
-			console.log("up");
 			position.y -= LOOK_STEP;
 			break;
 		case "down":
@@ -165,7 +162,6 @@ function chat_init() {
 	}
 	/**translates from universal coordinates into display coordinates*/
 	function translate_point(x0, y0) {
-		console.log("untranslated", x0, y0);
 		var canvas = $('#text');
 		var width = canvas.width() * OVERSAMPLE_RATIO;
 		var height = canvas.height() * OVERSAMPLE_RATIO;
@@ -253,7 +249,6 @@ function chat_init() {
 
 	function color_init() {
 		$('.colorradio').click(function () {
-			console.log($(this).css('background-color'));
 			setColor($(this).css('background-color'));
 		});
 	}

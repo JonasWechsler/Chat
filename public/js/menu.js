@@ -40,7 +40,7 @@ function menu_init() {
 		queue: false
 	});*/
 	$.getJSON(GoogleFonts, function (json) {
-		console.log(json);
+		console.log("Loaded fonts",json);
 		for (var i = 0; i < 100; i++) {
 			promptedFonts.push(json.items[i].family);
 		}
@@ -59,7 +59,6 @@ function menu_init() {
 		$("select option:selected").each(function () {
 			str += $(this).text() + " ";
 		});
-		console.log(str);
 		$(".textbox").css('font-family',str);
 	}).change();
 }
