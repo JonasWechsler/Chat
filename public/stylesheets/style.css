@@ -70,13 +70,21 @@ body {
 	width:30px;
 	height:30px;
 }
-
+/*Utility*/
 .circle{
 	-webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
 }
-
+.vline{
+	width:1px;
+	height:70px;
+	background-color:black;
+	border: inset 1px black;
+	margin:0;
+	padding:0;
+}
+/*Directional Pad*/
 .dpad{
 	width:60px;
 	height:60px;
@@ -120,16 +128,16 @@ body {
 	top:20px;
 	left:20px;
 }
+/*Hide Button*/
 .hide{
 	position:absolute;
 	top:0px;
-	
 }
 .hide:hover{
 	background-color:white;
 }
 
-/**/
+/*Arrow box and the arrows*/
 .arrow_box {
     padding:20px;
 	margin:5px;
@@ -144,7 +152,7 @@ body {
 	padding:0;
 	margin:0;
 }
-
+/*Makes arrows by making two overlapping triangles.*/
 .top_arrow {
 	vertical-align:top;
     top:-16px;
