@@ -40,10 +40,10 @@ function chat_init() {
 		input.css('left', '' + (event.pageX - (input.outerWidth() - input.innerWidth())) + "px");
 		input.css('top', '' + (event.pageY - input.outerHeight() * .5) + "px");
 		moved = true;
+		input.focus();
 	});
 	$('body').keypress(function () {
-		if (!$('.tags').focus())
-			input.focus();
+		input.focus();
 	});
 
 	$('body').bind('mousewheel', function (e) {
@@ -142,6 +142,7 @@ function chat_init() {
 			break;
 
 			/*down*/
+		
 		}
 	});
 

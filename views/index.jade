@@ -5,15 +5,20 @@ block content
 		canvas#text
 		div.menu
 				div.fontfinder
+					label(for='fonts')
+						|Font:
 					select.fonts
+				div.vline
 				div.sizer
 					h1.size.slideval 14
 					input.sizeslider(type="range" onchange="showSizeValue(this.value)" min="10" max="64")
+				div.vline
 				div.colorpicker
 					//h1.example What if I did
 				//div#history
 					h1#dateslideval 10
 					input#historyslider(type="range" onchange="showHistoryValue(this.value)")
+				div.vline
 				div.scroller
 					div.dpad.circle
 						div.dup
