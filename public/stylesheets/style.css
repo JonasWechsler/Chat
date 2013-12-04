@@ -84,11 +84,12 @@ body {
 	margin:0;
 	padding:0;
 }
+
 /*Directional Pad*/
 .dpad{
 	width:60px;
 	height:60px;
-	background-color:white;
+    	background-color:white;
 	border:solid 5px white;
 	position: relative;
 	margin:0px;
@@ -102,7 +103,10 @@ body {
 	position:absolute;
 	border:solid black 5px;
 	background-color:black;
-
+}
+.dpad *:hover{
+    background-color:grey;
+    border-color:grey;
 }
 .dup{
 	border-radius:100% 100% 0 0;
@@ -127,6 +131,47 @@ body {
 .dcenter{
 	top:20px;
 	left:20px;
+}
+/*Zooming in and out*/
+.zoomer{
+	width:25px;
+    height:75px;
+	background-color:white;
+    border:solid white 5px;
+    border-radius:10px;
+	position: relative;
+	margin:0px;
+	padding:0px;
+}
+.zoomer > *{
+	margin:0px;
+	padding:0px;
+    width:15px;
+	position:absolute;
+	border:solid black 5px;
+	background-color:black;
+    text-align:center;
+    color:white;
+}
+.zoomer >:hover{
+    background-color:grey;
+    border-color:grey;
+}
+.zup{
+    margin:0;
+    border-radius:10%;
+	top:0px;
+	left:0px;
+}
+.zdown{
+    margin:0;
+	border-radius:10%;
+	top:40px;
+	left:0px;
+}
+.ztext{
+    margin:0;
+    padding:0;
 }
 /*Hide Button*/
 .hide{

@@ -1,5 +1,4 @@
 function roughsizeof( object ) {
-
     var objectList = [];
     var stack = [ object ];
     var bytes = 0;

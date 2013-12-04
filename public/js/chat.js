@@ -58,7 +58,6 @@ function chat_init() {
 		redraw();
 		return false;
 	});
-
 	$('body').keyup(function (e) {
 		if (e.keyCode == 13) {
 			send_text();
@@ -119,6 +118,18 @@ function chat_init() {
 	$(".dright").click(function () {
 		pan("right")
 	});
+    $('.zdown').click(function() {
+        const STEP = .5;
+        position.z += STEP;
+		redraw();
+    });
+    $('.zup').click(function() {
+        const STEP = .5;
+        position.z -= STEP;
+		if (position.z < STEP)
+			position.z = STEP;
+		redraw();
+    });
 	$(document).keydown(function (e) {
 		switch (e.keyCode) {
 

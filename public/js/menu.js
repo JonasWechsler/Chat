@@ -12,7 +12,7 @@ function menu_init() {
 	var numFonts = 100;
 
 	var GOLD = 0.618033988749895;
-	/*menu.mouseover(function () {
+	menu.mouseover(function () {
 		menu.animate({
 			bottom: 0,
 			borderWidth: "0px"
@@ -20,7 +20,7 @@ function menu_init() {
 			queue: false
 		});
 	});
-	menu.click(function () {
+	$('.arrow_box').click(function () {
 		height = menu.innerHeight();
 		menu.animate({
 			bottom: -1 * height,
@@ -38,7 +38,7 @@ function menu_init() {
 		borderWidth: "0px"
 	}, {
 		queue: false
-	});*/
+	});
 	$.getJSON(GoogleFonts, function (json) {
 		console.log("Loaded fonts",json);
 		for (var i = 0; i < 100; i++) {
