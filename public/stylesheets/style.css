@@ -1,27 +1,26 @@
 body {
-	font: 14px, Georgia, serif;
-	background-color:white;
-	height:100%;
-	overflow: hidden;
+    font: 14px, Georgia, serif;
+    background-color: white;
+    height: 100%;
+    overflow: hidden;
 }
 .textbox {
-	position:absolute;
-	font-family:Georgia, serif;
-	color:grey;
-	font-size: 14px;
-	border: 5px solid white;
-	-webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
-	box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
-	padding: 7px;
-	background: rgba(255, 255, 255, 0.5);
-	margin: 0 0 1px 0;
-	z-index:2;
+    position: absolute;
+    font-family: Georgia, serif;
+    color: grey;
+    font-size: 14px;
+    border: 5px solid white;
+    -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.2);
+    padding: 7px;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 0 1px 0;
+    z-index: 2;
 }
 .textbox:focus {
-	outline:0;
+    outline: 0;
 }
-
 /*#text p {
 	color:grey;
 	position:absolute;
@@ -29,191 +28,198 @@ body {
 }*/
 
 #text {
-	position:absolute;
-	top:0px;
-	left:0px;
-	display:block;
-	width:100%;
-	height:99%;
-	background-color:white;
-	z-index:1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    width: 100%;
+    height: 99%;
+    background-color: white;
+    z-index: 1;
 }
-
 .menu {
-	font-family: Helvetica, sans-serif;
-	font-size:21px;
-	position:fixed;
-	left:0px;
-	bottom:0px;
-	display:block;
-	width:100%;
-	background-color:grey;
-	z-index:3;
-	opacity:.75;
-	border:0px solid black;
+    font-family: Helvetica, sans-serif;
+    font-size: 21px;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background-color: grey;
+    z-index: 3;
+    opacity: .75;
+    border: 0px solid black;
 }
-
-.menu *{
-	vertical-align:middle;
-	display:inline-block;
-	margin:5px;
-	padding:5px;
+.menu * {
+    vertical-align: middle;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
 }
-
-
-.slideval{
-	border-radius:5px;
-	background-color:#646464;
+.slideval {
+    border-radius: 5px;
+    background-color: #646464;
 }
-
-.colorradio{
-	width:30px;
-	height:30px;
+.colorradio {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    padding: 5px;
+}
+.colorradio:hover {
+    border: solid black 2px;
+    margin: 3px;
 }
 /*Utility*/
-.circle{
-	-webkit-border-radius: 100%;
+
+.circle {
+    -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
 }
-.vline{
-	width:1px;
-	height:70px;
-	background-color:black;
-	border: inset 1px black;
-	margin:0;
-	padding:0;
+.vline {
+    width: 1px;
+    height: 70px;
+    background-color: black;
+    border: inset 1px black;
+    margin: 0;
+    padding: 0;
 }
-
 /*Directional Pad*/
-.dpad{
-	width:60px;
-	height:60px;
-    	background-color:white;
-	border:solid 5px white;
-	position: relative;
-	margin:0px;
-	padding:0px;
+
+.dpad {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: solid 5px white;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
 }
-.dpad *{
-	margin:0px;
-	padding:0px;
-	width:10px;
-	height:10px;
-	position:absolute;
-	border:solid black 5px;
-	background-color:black;
+.dpad * {
+    margin: 0px;
+    padding: 0px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: solid black 5px;
+    background-color: black;
 }
-.dpad *:hover{
-    background-color:grey;
-    border-color:grey;
+.dpad *:hover {
+    background-color: rgb(27, 27, 27);
+    border-color: rgb(27, 27, 27);
+    ;
 }
-.dup{
-	border-radius:100% 100% 0 0;
-	top:0px;
-	left:20px;
+.dup {
+    border-radius: 100% 100% 0 0;
+    top: 0px;
+    left: 20px;
 }
-.dleft{
-	border-radius:100% 0 0 100%;
-	top:20px;
-	left:0px;
+.dleft {
+    border-radius: 100% 0 0 100%;
+    top: 20px;
+    left: 0px;
 }
-.dright{
-	border-radius:0 100% 100% 0;
-	top:20px;
-	left:40px;
+.dright {
+    border-radius: 0 100% 100% 0;
+    top: 20px;
+    left: 40px;
 }
-.ddown{
-	border-radius:0 0 100% 100%;
-	top:40px;
-	left:20px;
+.ddown {
+    border-radius: 0 0 100% 100%;
+    top: 40px;
+    left: 20px;
 }
-.dcenter{
-	top:20px;
-	left:20px;
+.dcenter {
+    top: 20px;
+    left: 20px;
 }
 /*Zooming in and out*/
-.zoomer{
-	width:25px;
-    height:75px;
-	background-color:white;
-    border:solid white 5px;
-    border-radius:10px;
-	position: relative;
-	margin:0px;
-	padding:0px;
+
+.zoomer {
+    width: 25px;
+    height: 75px;
+    background-color: white;
+    border: solid white 5px;
+    border-radius: 10px;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
 }
-.zoomer > *{
-	margin:0px;
-	padding:0px;
-    width:15px;
-	position:absolute;
-	border:solid black 5px;
-	background-color:black;
-    text-align:center;
-    color:white;
+.zoomer > * {
+    margin: 0px;
+    padding: 0px;
+    width: 15px;
+    position: absolute;
+    border: solid black 5px;
+    background-color: black;
+    text-align: center;
+    color: white;
 }
-.zoomer >:hover{
-    background-color:grey;
-    border-color:grey;
+.zoomer >:hover {
+    background-color: rgb(27, 27, 27);
+    border-color: rgb(27, 27, 27);
 }
-.zup{
-    margin:0;
-    border-radius:10%;
-	top:0px;
-	left:0px;
+.zup {
+    margin: 0;
+    border-radius: 10%;
+    top: 0px;
+    left: 0px;
 }
-.zdown{
-    margin:0;
-	border-radius:10%;
-	top:40px;
-	left:0px;
+.zdown {
+    margin: 0;
+    border-radius: 10%;
+    top: 40px;
+    left: 0px;
 }
-.ztext{
-    margin:0;
-    padding:0;
+.ztext {
+    margin: 0;
+    padding: 0;
 }
 /*Hide Button*/
-.hide{
-	position:absolute;
-	top:0px;
-}
-.hide:hover{
-	background-color:white;
-}
 
+.hide {
+    position: absolute;
+    top: 0px;
+}
+.hide:hover {
+    background-color: white;
+}
 /*Arrow box and the arrows*/
-.arrow_box {
-    padding:20px;
-	margin:5px;
-    width:0;
-	height:0;
-	vertical-align:top;
-	right:0px;
-	float:right;
-}
 
-.arrow_box *{
-	padding:0;
-	margin:0;
+.arrow_box {
+    padding: 20px;
+    margin: 5px;
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    right: 0px;
+    float: right;
+}
+.arrow_box * {
+    padding: 0;
+    margin: 0;
 }
 /*Makes arrows by making two overlapping triangles.*/
+
 .top_arrow {
-	vertical-align:top;
-    top:-16px;
-    position:relative;
+    vertical-align: top;
+    top: -16px;
+    position: relative;
 }
 .bottom_arrow {
-	vertical-align:top;
-    position:relative;
+    vertical-align: top;
+    position: relative;
 }
 .arrow_up {
     position: relative;
     background: #ffffff;
 }
-.arrow_up:after, .arrow_up:before {
+.arrow_up:after,
+.arrow_up:before {
     border: solid transparent;
-    content:" ";
+    content: " ";
     height: 0;
     width: 0;
     position: absolute;
@@ -231,9 +237,9 @@ body {
     border-width: 16px;
     margin-left: -16px;
 }
-.arrow_box:hover .arrow_up:after{
-    border-top-color:white;
+.arrow_box:hover .arrow_up:after {
+    border-top-color: white;
 }
-.arrow_box:hover{
-    background-color:white;
+.arrow_box:hover {
+    background-color: white;
 }
